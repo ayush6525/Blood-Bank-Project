@@ -7,7 +7,7 @@ const app = express();
 // 1 test route
 app.get("/",(req,res) => {
     res.status(200).json({
-        message: "Welcome to Blood Bank App",
+        message: "Welcome to My World",
     });
 });
 
