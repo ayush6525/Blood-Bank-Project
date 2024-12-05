@@ -1,59 +1,52 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema({
-    role:{
-        type:String,
-        require:[true,"Role is requuired"],
-        enum:['admin','organization','user','hospital']
+const userSchema = new mongoose.Schema(
+  {
+    role: {
+      type: String,
+      required: [true, "Role is required"], // Fixed "require" to "required"
+      enum: ["admin", "organization", "user", "hospital"],
     },
-    name:{
-        type:String,
-        require: function() {
-            if(this.role === 'user' || this.role === 'admin'){
-                return true
-        }
-        return false
-    }
+    name: {
+      type: String,
+      required: function () {
+        return this.role === "user" || this.role === "admin"; // Simplified
+      },
     },
-    organizationName:{
-        type:String,
-        require: function() {
-            if(this.role === 'organization'){
-                return true
-            }
-            return false
-        }
+    organizationName: {
+      type: String,
+      required: function () {
+        return this.role === "organization"; // Simplified
+      },
     },
-    hospitalName:{
-        type:String,
-        require: function() {
-            if(this.role === 'hospital'){
-                return true
-            }
-            return false
-        }
+    hospitalName: {
+      type: String,
+      required: function () {
+        return this.role === "hospital"; // Simplified
+      },
     },
+    email: {
+      type: String,
+      required: [true, "Email is required"], // Fixed "require" to "required"
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"], // Fixed "require" to "required"
+    },
+    website: {
+      type: String,
+    },
+    address: {
+      type: String,
+      required: [true, "Address is required"], // Fixed "require" to "required"
+    },
+    phone: {
+      type: String,
+      required: [true, "Phone number is required"], // Fixed "require" to "required"
+    },
+  },
+  { timestamps: true }
+);
 
-    email:{
-        type:String,
-        require:[true,"email is required"],
-        unique:true
-    },
-    password:{
-        type:String,
-        require:[true,"password is required"],
-    },
-    website:{
-        type:String
-    },
-    address:{
-        type:String,
-        require:[true,"address is required"],
-    },
-    phone:{
-        type:String,
-        require:[true,"Phone number is required"],
-    },
-}, {timestamps:true});
-
-module.exports = mongoose.model('users',userSchema )
+module.exports = mongoose.model("users", userSchema);
